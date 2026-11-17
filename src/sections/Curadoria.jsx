@@ -3,24 +3,24 @@ import { entrada } from '../data'
 export default function Curadoria() {
   const equipe = [
     {
-      nome: "Francisco Antonio de Oliveira Junior",
-      papel: "Curadoria, design, pesquisa, programação e webdesign",
-      foto: "/caminho/para/foto-francisco.jpg", // Substitua pelo caminho da foto
+      nome: "Sheila Pita",
+      papel: "Curadoria geral, coordenação, pesquisa",
+      foto: "/images/sheila.jpg",
     },
     {
       nome: "Muana Dandara Simões de Sousa",
       papel: "Curadoria e pesquisa",
-      foto: "/caminho/para/foto-muana.jpg",
-    },
-    {
-      nome: "Sheila Pita",
-      papel: "Curadoria geral, coordenação, pesquisa",
-      foto: "/caminho/para/foto-sheila.jpg",
+      foto: "/images/dandara.jpg",
     },
     {
       nome: "Winny Sousa",
       papel: "Curadoria e pesquisa",
-      foto: "/caminho/para/foto-winny.jpg",
+      foto: "/images/winny.jpg",
+    },
+    {
+      nome: "Francisco Antonio de Oliveira Junior",
+      papel: "Curadoria, design, pesquisa, programação e webdesign",
+      foto: "/images/francisco.jpg",
     },
   ]
 
@@ -64,14 +64,7 @@ export default function Curadoria() {
                     src={membro.foto}
                     alt={`Foto de ${membro.nome}`}
                     className="h-full w-full object-cover"
-                    // Caso a foto ainda não exista, exibe um placeholder elegante ou iniciais
-                    onError={(e) => {
-                      e.target.style.display = 'none'
-                    }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-center text-xs text-neutral-500 -z-10">
-                    Foto
-                  </div>
                 </div>
 
                 {/* Informações */}
