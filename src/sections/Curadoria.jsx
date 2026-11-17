@@ -5,22 +5,22 @@ export default function Curadoria() {
     {
       nome: "Sheila Pita",
       papel: "Curadoria geral, coordenação, pesquisa",
-      foto: "/images/sheila.jpg",
+      foto: "/fotos/sheila.jpg",
     },
     {
       nome: "Muana Dandara Simões de Sousa",
       papel: "Curadoria e pesquisa",
-      foto: "/images/dandara.jpg",
+      foto: "/fotos/dandara.jpg",
     },
     {
       nome: "Winny Sousa",
       papel: "Curadoria e pesquisa",
-      foto: "/images/winny.jpg",
+      foto: "/fotos/winny.jpg",
     },
     {
       nome: "Francisco Antonio de Oliveira Junior",
       papel: "Curadoria, design, pesquisa, programação e webdesign",
-      foto: "/images/francisco.jpg",
+      foto: "/fotos/francisco.jpg",
     },
   ]
 
