@@ -1,28 +1,7 @@
-import { useEffect, useState } from 'react'
 import { Waves } from 'lucide-react'
 import { circuito } from '../data'
 
-function useSecaoAtiva(ids) {
-  const [ativa, setAtiva] = useState(ids[0])
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entradas) => entradas.forEach((e) => e.isIntersecting && setAtiva(e.target.id)),
-      { rootMargin: '-40% 0px -55% 0px' }
-    )
-    ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) obs.observe(el)
-    })
-    return () => obs.disconnect()
-  }, [ids])
-  return ativa
-}
-
-const ids = circuito.map((c) => c.id)
-
-export default function Nav() {
-  const ativa = useSecaoAtiva(ids)
-
+export default function Nav({ atual }) {
   return (
     <nav
       aria-label="Circuito expositivo"
@@ -37,9 +16,9 @@ export default function Nav() {
           <li key={id}>
             <a
               href={`#${id}`}
-              aria-current={ativa === id ? 'true' : undefined}
+              aria-current={atual === id ? 'page' : undefined}
               className={`block rounded px-3 py-2.5 transition-colors ${
-                ativa === id ? 'bg-sf text-areia' : 'text-areia-suave hover:text-areia'
+                atual === id ? 'bg-sf text-areia' : 'text-areia-suave hover:text-areia'
               }`}
             >
               {rotulo}
