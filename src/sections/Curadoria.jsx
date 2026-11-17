@@ -1,32 +1,26 @@
 import { entrada } from '../data'
 
-// Importando as imagens diretamente para garantir que o Vite as reconheça
-import sheilaImg from '../../public/fotos/sheila.jpg'
-import dandaraImg from '../../public/fotos/dandara.jpg'
-import winnyImg from '../../public/fotos/winny.jpg'
-import franciscoImg from '../../public/fotos/francisco.jpg'
-
 export default function Curadoria() {
   const equipe = [
     {
       nome: "Sheila Pita",
       papel: "Curadoria geral, coordenação, pesquisa",
-      foto: sheilaImg,
+      foto: "/fotos/curadoria/sheila.jpeg",
     },
     {
       nome: "Muana Dandara Simões de Sousa",
       papel: "Curadoria e pesquisa",
-      foto: dandaraImg,
+      foto: "/fotos/curadoria/dandara.jpeg",
     },
     {
       nome: "Winny Sousa",
       papel: "Curadoria e pesquisa",
-      foto: winnyImg,
+      foto: "/fotos/curadoria/winny.jpeg",
     },
     {
       nome: "Francisco Antonio de Oliveira Junior",
       papel: "Curadoria, design, pesquisa, programação e webdesign",
-      foto: franciscoImg,
+      foto: "/fotos/curadoria/francisco.jpeg",
     },
   ]
 
