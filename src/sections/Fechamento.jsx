@@ -1,3 +1,4 @@
+import TrilhaSonora from '../components/TrilhaSonora'
 import { fechamento } from '../data'
 
 export default function Fechamento() {
@@ -14,6 +15,9 @@ export default function Fechamento() {
           “{fechamento.citacao}”
         </blockquote>
         <p className="mt-4 text-sm text-areia-fosca">{fechamento.autoria}</p>
+        <div className="mt-16 flex justify-center">
+          <TrilhaSonora audio={fechamento.audio} />
+        </div>
         <p className="mt-24 text-sm text-neutral-500">{fechamento.rodape}</p>
       </div>
     </section>

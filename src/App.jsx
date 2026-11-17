@@ -9,9 +9,11 @@ import Remanso from './sections/Remanso'
 import PilaoArcado from './sections/PilaoArcado'
 import SentoSe from './sections/SentoSe'
 import Trilha from './sections/Trilha'
+import MaterialAdicional from './sections/MaterialAdicional'
 import Fechamento from './sections/Fechamento'
 import { circuito } from './data'
 import { useRota } from './useRota'
+import { SomProvider } from './som'
 
 export default function App() {
   // estado do lightbox: { itens: [...fotos do grupo], indice }
@@ -46,17 +48,18 @@ export default function App() {
     'pilao-arcado': <PilaoArcado onAbrir={abrir} />,
     'sento-se': <SentoSe onAbrir={abrir} />,
     trilha: <Trilha />,
+    'material-adicional': <MaterialAdicional />,
     fechamento: <Fechamento />,
   }
 
   return (
-    <>
+    <SomProvider sala={sala}>
       <Nav atual={sala} />
       <main ref={principal} tabIndex={-1} className="outline-none">
         {salas[sala]}
-        {sala !== 'fechamento' && <ProximaSala atual={sala} />}
+        <ProximaSala atual={sala} />
       </main>
       <Lightbox estado={lightbox} onFechar={fechar} onNavegar={navegar} />
-    </>
+    </SomProvider>
   )
 }

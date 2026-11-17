@@ -1,5 +1,6 @@
 import { Waves } from 'lucide-react'
 import { circuito } from '../data'
+import SomBotao from './SomBotao'
 
 export default function Nav({ atual }) {
   return (
@@ -26,6 +27,7 @@ export default function Nav({ atual }) {
           </li>
         ))}
       </ul>
+      <SomBotao />
     </nav>
   )
 }

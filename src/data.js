@@ -27,7 +27,7 @@ const foto = (cidade, id, titulo, legenda, fundo, altura = 280) => ({
 export const entrada = {
   titulo: 'Entre Águas e Memórias',
   subtitulo: 'Remanso, Casa Nova, Sento Sé e Pilão Arcado: histórias de vidas e pertencimentos.',
-  audio: { src: '/audio/sobradinho.mp3', titulo: 'Canção “Sobradinho”' },
+  audio: { src: '/audio/passeando-pelo-nordeste.mp3', titulo: '“Passeando pelo Nordeste”, Edmilson do Pífano' },
   textos: [
     {
       id: 'curatorial-1',
@@ -74,7 +74,9 @@ const real = ({ id, arquivo, titulo, legenda, alt, creditos, fonte }) => ({
   fonte,
 })
 
-const IBGE_FOTO = (extra) => `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia em preto e branco${extra ? ` · ${extra}` : ''}`
+const IBGE = (id, ano, tipo = 'fotografia em preto e branco', nota) =>
+  `Autoria: ${AC} · Data: ${ano} · Acervo: IBGE, Biblioteca, Acervo dos municípios brasileiros (ID ${id}) · Técnica: ${tipo}${nota ? ` · ${nota}` : ''}`
+const LOC = 'Localização na sala: [a confirmar]'
 const MEM_ELET = (extra) => `Autoria: ${AC} · Data: ${AC} · Acervo: Memória da Eletricidade · Técnica: fotografia colorida${extra ? ` · ${extra}` : ''}`
 const URL_IBGE = (id) => `https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=${id}`
 
@@ -91,10 +93,10 @@ const grupos = [
       real({
         id: 'travessia',
         arquivo: 'travessia.jpg',
-        titulo: 'A travessia do São Francisco',
-        legenda: 'Margem do São Francisco em um registro fotográfico antigo: o rio como caminho entre as povoações.',
-        alt: 'Fotografia antiga em tom sépia da margem de um rio, com vegetação ao fundo e parte de uma figura humana no canto.',
-        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: Brasiliana Fotográfica · Técnica: fotografia em preto e branco (recorte de página de álbum)`,
+        titulo: 'Barca do Rio de S. Francisco',
+        legenda: 'Barca com cobertura de palha e figura esculpida na proa, atracada à margem do São Francisco. No cartão-suporte, a inscrição manuscrita “Barca do Rio de S. Francisco”.',
+        alt: 'Fotografia antiga em preto e branco de uma barca de madeira com cobertura de palha, atracada à margem de um rio; a imagem está colada em um cartão com a legenda manuscrita Barca do Rio de S. Francisco.',
+        creditos: 'Autoria: Reginald Gorham · Data: [ca. 1927] · Acervo: Biblioteca Nacional (Brasil), Brasiliana Fotográfica · Técnica: cópia fotográfica em gelatina e prata, preto e branco, 8 x 13,6 cm (cartão-suporte 15,8 x 22,5 cm) · Localidade: Rio São Francisco, Bahia, Brasil',
         fonte: 'https://brasilianafotografica.bn.gov.br/brasiliana/handle/20.500.12156.1/2863',
       }),
     ],
@@ -111,25 +113,25 @@ const grupos = [
         titulo: 'Rua calçada e a torre da igreja',
         legenda: 'Rua com árvores, postes e pessoas a pé; ao fundo, a torre da igreja.',
         alt: 'Rua calçada com árvores à esquerda, postes, casario à direita e a torre de uma igreja ao fundo.',
-        creditos: IBGE_FOTO(),
+        creditos: IBGE('28427', '[19--]', undefined, 'título no catálogo: a confirmar'),
         fonte: URL_IBGE(428427),
       }),
       real({
         id: 'rua-caminhao',
         arquivo: 'passado-rua-caminhao.jpg',
-        titulo: 'Rua com caminhão',
-        legenda: 'Rua de terra batida, com um caminhão à frente e a torre da igreja ao fundo.',
+        titulo: 'Rua Hermógenes Viana',
+        legenda: 'Rua Hermógenes Viana, no Bairro do Tabuleiro: rua de terra batida, com um caminhão à frente e a torre da igreja ao fundo.',
         alt: 'Rua larga de terra com um caminhão ao fundo, árvores e uma torre de igreja.',
-        creditos: IBGE_FOTO(),
+        creditos: IBGE('28431', '[19--]'),
         fonte: URL_IBGE(428431),
       }),
       real({
         id: 'panorama',
         arquivo: 'passado-panorama.jpg',
-        titulo: 'A cidade vista de longe',
+        titulo: 'Vista parcial da cidade',
         legenda: 'Vista panorâmica do casario e da torre da igreja, com a escarpa ao fundo e a vegetação em primeiro plano.',
         alt: 'Panorama distante da cidade com casas baixas, uma torre de igreja e um paredão rochoso ao fundo.',
-        creditos: IBGE_FOTO(),
+        creditos: IBGE('28434', '[19--]'),
         fonte: URL_IBGE(428434),
       }),
       real({
@@ -138,7 +140,7 @@ const grupos = [
         titulo: 'Hospital Regional',
         legenda: 'Edifício do Hospital Regional, de três corpos com telhados em quatro águas, cercado de mato.',
         alt: 'Edifício branco de três corpos com a inscrição Hospital Regional na fachada e vegetação rasteira à frente.',
-        creditos: IBGE_FOTO(),
+        creditos: IBGE('28436', '1957'),
         fonte: URL_IBGE(428436),
       }),
       real({
@@ -147,26 +149,26 @@ const grupos = [
         titulo: 'Rua dos arcos',
         legenda: 'Rua de terra com muro de varas, edificações com arcos e a torre da igreja ao longe.',
         alt: 'Rua de terra com um caminhão à esquerda, cercas de varas, um edifício com arcos e a torre da igreja ao fundo.',
-        creditos: IBGE_FOTO(),
+        creditos: IBGE('28437', '[a confirmar]', undefined, 'sem título no catálogo'),
         fonte: URL_IBGE(428437),
       }),
       real({
         id: 'matriz-rua',
         arquivo: 'passado-matriz-rua.jpg',
-        titulo: 'A Igreja Matriz ao fim da rua',
+        titulo: 'Igreja Matriz',
         legenda:
           'A igreja matriz ao fundo de uma rua larga, entre postes e casas. Segundo relato publicado pela Agência Brasil, a antiga matriz foi implodida porque a altura da torre poderia oferecer risco à navegação.',
         alt: 'Rua larga de terra com postes de energia e, ao fundo, uma igreja branca com torre.',
-        creditos: IBGE_FOTO(),
+        creditos: IBGE('28429', '[19--]'),
         fonte: URL_IBGE(428429),
       }),
       real({
         id: 'matriz-fachada',
         arquivo: 'passado-matriz-fachada.jpg',
-        titulo: 'Fachada da Igreja Matriz',
+        titulo: 'Igreja Matriz, fachada',
         legenda: 'Fachada frontal da matriz, com torre sineira e frontão ornamentado; duas pessoas atravessam o largo.',
         alt: 'Fachada branca de igreja com torre sineira, frontão decorado e duas pessoas em frente.',
-        creditos: IBGE_FOTO(),
+        creditos: IBGE('28435', '1957'),
         fonte: URL_IBGE(428435),
       }),
     ],
@@ -287,19 +289,19 @@ const grupos = [
       real({
         id: 'nova-edificio',
         arquivo: 'nova-edificio-praca.jpg',
-        titulo: 'Edifício e praça sob céu carregado',
-        legenda: 'Edifício público e mastros de bandeira diante de uma praça pavimentada, sob nuvens pesadas.',
+        titulo: 'Prefeitura e Câmara Municipal',
+        legenda: 'Prefeitura e Câmara Municipal, na Praça Três: edifício baixo e branco, com mastros de bandeira diante de uma praça pavimentada, sob nuvens pesadas.',
         alt: 'Praça pavimentada em primeiro plano e, ao fundo, um edifício baixo e branco com mastros de bandeira sob céu nublado.',
-        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia colorida · Localização na sala: ${AC}`,
+        creditos: IBGE('28441', '[19--]', 'fotografia colorida', LOC),
         fonte: URL_IBGE(428441),
       }),
       real({
         id: 'nova-rua',
         arquivo: 'nova-rua.jpg',
-        titulo: 'Rua da nova cidade',
-        legenda: 'Rua calçada com carros estacionados, entre árvores e uma praça gramada.',
+        titulo: 'Praça Três',
+        legenda: 'Praça Três: rua calçada com carros estacionados, entre árvores e um espaço gramado.',
         alt: 'Rua de paralelepípedos com carros estacionados à esquerda, árvores e uma praça gramada à direita.',
-        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia colorida · Localização na sala: ${AC}`,
+        creditos: IBGE('28442', '[19--]', 'fotografia colorida', LOC),
         fonte: URL_IBGE(428442),
       }),
       real({
@@ -308,7 +310,7 @@ const grupos = [
         titulo: 'A igreja e a praça',
         legenda: 'A igreja ao fundo de uma praça gramada; um ciclista cruza o calçamento em primeiro plano.',
         alt: 'Praça gramada cercada por calçada de blocos, com uma igreja ao fundo e um homem de bicicleta à direita.',
-        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia colorida · Localização na sala: ${AC}`,
+        creditos: IBGE('28443', '[a confirmar]', 'fotografia colorida', 'sem título no catálogo · ' + LOC),
         fonte: URL_IBGE(428443),
       }),
     ],
@@ -437,7 +439,7 @@ export const casaNova = {
     },
     {
       texto:
-        'INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). **Casa Nova (BA)**: [título a confirmar]. Rio de Janeiro: IBGE, Biblioteca, [data a confirmar]. Fotografias. Disponível em: https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=428427 (e ids 428429, 428431, 428434, 428435, 428436, 428437, 428441, 428442, 428443). Acesso em: 17 nov. 2026.',
+        'INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). **Acervo dos municípios brasileiros**: Casa Nova (BA), código 2907202. Rio de Janeiro: IBGE, Biblioteca, [19--]; 1957. Fotografias, p&b e color. Disponível em: https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=428427 (e ids 428429, 428431, 428434, 428435, 428436, 428437, 428441, 428442, 428443). Acesso em: 17 nov. 2026.',
     },
     {
       texto:
@@ -449,7 +451,7 @@ export const casaNova = {
     },
     {
       texto:
-        'BRASILIANA FOTOGRÁFICA. **A travessia do São Francisco**. [Local]: [instituição a confirmar], [data a confirmar]. 1 fotografia. Disponível em: https://brasilianafotografica.bn.gov.br/brasiliana/handle/20.500.12156.1/2863. Acesso em: 17 nov. 2026.',
+        'GORHAM, Reginald. **Barca do Rio de S. Francisco, 59**. [ca. 1927]. 1 fotografia, cópia em gelatina e prata, p&b, 8 x 13,6 cm, em cartão-suporte de 15,8 x 22,5 cm. Rio de Janeiro: Biblioteca Nacional, Brasiliana Fotográfica, [s.d.]. Disponível em: https://brasilianafotografica.bn.gov.br/brasiliana/handle/20.500.12156.1/2863. Acesso em: 17 nov. 2026.',
     },
     {
       texto:
@@ -483,7 +485,7 @@ export const remanso = {
   titulo: 'Remanso',
   intro:
     'Cidade de beira de rio, voltada para a água. Os relatos abaixo ocupam o espaço onde ficarão as vozes de quem fez a travessia.',
-  audio: { src: '/audio/remanso.mp3', titulo: 'Paisagem sonora de Remanso' },
+  audio: { src: '/audio/remanso.mp3', titulo: '“Água”, BaianaSystem, Antonio Carlos & Jocafi e Orquestra Afrosinfônica' },
   fotos: [
     foto('Remanso', 1, 'O rio como estrada', 'Antes do lago, o São Francisco era caminho, mercado e conversa entre as margens.', FUNDOS.rio),
     foto('Remanso', 2, 'Casario à beira d’água', 'Fachadas voltadas para o rio, como quem sempre soube de onde vinha o futuro.', FUNDOS.entardecer),
@@ -502,7 +504,7 @@ export const pilaoArcado = {
   titulo: 'Pilão Arcado',
   intro:
     'Selecione uma fotografia para ampliá-la e ler a legenda. Cada imagem abre um fragmento da cidade que ficou sob o lago.',
-  audio: { src: '/audio/pilao-arcado.mp3', titulo: 'Paisagem sonora de Pilão Arcado' },
+  audio: { src: '/audio/pilao-arcado.mp3', titulo: '“Memórias das Águas”, Maria Bethânia' },
   fotos: [
     foto('Pilão Arcado', 1, 'A igreja e o largo', 'Torre e adro de uma cidade que hoje só se alcança pelo relato.', FUNDOS.seca),
     foto('Pilão Arcado', 2, 'Feira de sábado', 'Balaios, panos e vozes: o comércio como forma de encontro.', FUNDOS.terra),
@@ -525,7 +527,7 @@ export const sentoSe = {
   titulo: 'Sento Sé',
   intro:
     'Quando o lago recua em anos de seca, os alicerces voltam. Em cada par, à esquerda a cidade como era; à direita, a ruína que emerge.',
-  audio: { src: '/audio/sento-se.mp3', titulo: 'Paisagem sonora de Sento Sé' },
+  audio: { src: '/audio/sento-se.mp3', titulo: '“Segue o Seco”, Marisa Monte (1994)' },
   pares: [
     par('praca', 'A praça', 'A praça cheia, com a vida da cidade acontecendo ao ar livre.', 'Alicerces de pedra emergem do barro rachado quando o lago recua.'),
     par('igreja', 'A igreja', 'A matriz como ponto de referência visível de longe.', 'Paredes baixas e marcas de piso reaparecem em meio à seca.'),
@@ -536,13 +538,36 @@ export const sentoSe = {
 export const trilha = {
   id: 'trilha',
   titulo: 'Trilha expográfica',
+  audio: { src: '/audio/trilha.mp3', titulo: '“Sobradinho” (arranjo original, instrumental), Sá e Guarabyra' },
   intro:
     'Um percurso sequencial pelas áreas remanescentes das antigas cidades, pensado para ser feito em trechos. Na seca, as ruínas emergem e a trilha ganha novos pontos de leitura.',
+  ecomuseu: {
+    titulo: 'Ecomuseu das Águas da Memória',
+    texto: [
+      'A trilha integra a proposta de um ecomuseu, que parte da Museologia Social e da Ecomuseologia: o território é o principal objeto museológico e a comunidade, a protagonista do discurso expositivo.',
+      'No mapa, cada ponto de ruínas é a porta de entrada para a ala da cidade correspondente. Toque ou clique em um deles para ver as fotografias de acervo, os relatos em áudio e os textos históricos daquele lugar.',
+    ],
+  },
   mapa: {
-    // Mapa incorporado do Google. Troque `consulta` por um link de "Meu Mapa" com a rota
-    // quando ela estiver desenhada (Google > Meus Mapas > Compartilhar > Incorporar).
-    consulta: 'Lago de Sobradinho, Bahia',
-    legenda: '[Rota expográfica: pontos e trechos a definir entre Casa Nova, Remanso, Pilão Arcado e Sento Sé]',
+    imagem: '/mapa/rota-expografica.png',
+    alt: 'Mapa de satélite do lago de Sobradinho com a trilha da memória em linha tracejada e quatro pontos de ruínas: Casa Nova, Pilão Arcado, Remanso e Sento Sé.',
+    legenda: 'Representação ilustrativa do percurso expo-geográfico: a posição dos pontos é aproximada.',
+    google: 'https://www.google.com/maps/search/?api=1&query=Lago+de+Sobradinho+Bahia',
+    // x e y: posição do ponto sobre a imagem, em % da largura e da altura.
+    pontos: [
+      {
+        id: 'casa-nova',
+        nome: 'Ruínas de Casa Nova',
+        sala: 'casa-nova',
+        x: 29,
+        y: 34.7,
+        pronta: true,
+        resumo: 'Fotografias de acervo, o mapa do município, o morador ilustre e a canção “Abraço do Tempo”.',
+      },
+      { id: 'remanso', nome: 'Ruínas de Remanso', sala: 'remanso', x: 54.8, y: 26.3, pronta: false, resumo: 'Ala em preparação.' },
+      { id: 'pilao-arcado', nome: 'Ruínas de Pilão Arcado', sala: 'pilao-arcado', x: 35.7, y: 27, pronta: false, resumo: 'Ala em preparação.' },
+      { id: 'sento-se', nome: 'Ruínas de Sento Sé', sala: 'sento-se', x: 71.6, y: 19.3, pronta: false, resumo: 'Ala em preparação.' },
+    ],
   },
 }
 
@@ -553,6 +578,7 @@ export const fechamento = {
     'Pensar Sobradinho como ecomuseu é entender o território inteiro como acervo: o lago, as ruínas, os caminhos de mudança e as pessoas que carregam a cidade antiga na fala. O museu, aqui, não tem paredes; tem margem.',
   citacao: 'A água cobriu o chão, mas nunca alcançou a memória.',
   autoria: 'Epígrafe curatorial desta exposição',
+  audio: { src: '/audio/sobradinho.mp3', titulo: '“Sobradinho”, Sá e Guarabyra (versão de Chico César)' },
   rodape: 'Protótipo de exposição virtual · imagens ilustrativas · [CRÉDITOS DO ACERVO]',
 }
 
@@ -563,6 +589,76 @@ export const circuito = [
   { id: 'remanso', rotulo: 'Remanso' },
   { id: 'pilao-arcado', rotulo: 'Pilão Arcado' },
   { id: 'sento-se', rotulo: 'Sento Sé' },
-  { id: 'trilha', rotulo: 'Trilha' },
   { id: 'fechamento', rotulo: 'Fechamento' },
+  { id: 'trilha', rotulo: 'Trilha' },
+  { id: 'material-adicional', rotulo: 'Material adicional' },
 ]
+
+const URL_RC = 'https://www.camara.leg.br/radio/programas/'
+const RC_ACERVO = 'Rádio Câmara (Câmara dos Deputados)'
+
+export const materialAdicional = {
+  id: 'material-adicional',
+  titulo: 'Material adicional',
+  intro:
+    'Para ouvir além da exposição: a reportagem especial da Rádio Câmara sobre os 50 anos da barragem de Sobradinho, com depoimentos de moradores de Remanso, Casa Nova, Pilão Arcado e Sento Sé.',
+  serie: {
+    titulo: '50 anos da Barragem de Sobradinho',
+    programa: 'Reportagem Especial · Rádio Câmara (Câmara dos Deputados) · junho de 2023',
+    texto:
+      'As obras da represa de Sobradinho começaram em junho de 1973, no sertão da Bahia. Nos anos seguintes, povoados foram alagados, cerca de 70 mil pessoas foram deslocadas e surgiu o maior lago artificial do Brasil. A série, de cinco capítulos, ouve quem viveu essa mudança. Aqui estão os capítulos 2, 3 e 4.',
+  },
+  capitulos: [
+    {
+      id: 'cap-2',
+      titulo: 'Capítulo 2',
+      data: '27 jun. 2023',
+      duracao: '10 min 2 s',
+      resumo:
+        'Antigos moradores das cidades alagadas fazem um balanço de prós e contras da obra, entre as memórias submersas e as esperanças de desenvolvimento para a região.',
+      entrevistas:
+        'José Rodrigues da Silva, Maria Perpétua dos Santos e Ariosvaldo de Araújo, ex-moradores de Remanso Velho; Lenita Braga Ferreira, de Casa Nova; Rosália Santos e Darci Barbosa, de Pilão Arcado.',
+      audio: { src: '/audio/reportagem-sobradinho-cap-2.mp3', titulo: '50 anos da Barragem de Sobradinho · Capítulo 2' },
+      fonte: `${URL_RC}974973-50-anos-da-barragem-de-sobradinho-capitulo-2`,
+    },
+    {
+      id: 'cap-3',
+      titulo: 'Capítulo 3',
+      data: '28 jun. 2023',
+      duracao: '9 min 24 s',
+      resumo:
+        'Remanso, Casa Nova, Sento Sé e Pilão Arcado já existiam muito antes da represa, mas o cotidiano mudou com o enchimento do lago e a operação da usina. Os moradores se dividem entre a saudade das cidades velhas e a valorização das cidades novas.',
+      entrevistas:
+        'Entre os entrevistados, Lenita Braga Ferreira e José Roberto, de Casa Nova; Rosália dos Santos e Florzino da Silva, de Pilão Arcado; Armando Alves e Jurandir da Silva, de Sento Sé; Gumercindo dos Santos, de Sobradinho.',
+      audio: { src: '/audio/reportagem-sobradinho-cap-3.mp3', titulo: '50 anos da Barragem de Sobradinho · Capítulo 3' },
+      fonte: `${URL_RC}974964-50-anos-da-barragem-de-sobradinho-capitulo-3`,
+    },
+    {
+      id: 'cap-4',
+      titulo: 'Capítulo 4',
+      data: '29 jun. 2023',
+      duracao: '6 min 48 s',
+      resumo:
+        'O deslocamento de mais de 70 mil pessoas criou uma dívida social do Estado com os moradores da região. O Ipea já apontou violações de direitos como moradia, água, energia, mobilidade, trabalho e renda.',
+      entrevistas:
+        'Marcos Souza, do Movimento dos Atingidos por Barragens; Marta dos Santos, pesquisadora do Ipea; João Henrique Franklin, presidente da Eletrobras Chesf; Ariosvaldo de Araújo, morador de Sobradinho e ex-dirigente da fundação que reunia os municípios do entorno da represa.',
+      audio: { src: '/audio/reportagem-sobradinho-cap-4.mp3', titulo: '50 anos da Barragem de Sobradinho · Capítulo 4' },
+      fonte: `${URL_RC}974957-50-anos-da-barragem-de-sobradinho-capitulo-4`,
+    },
+  ],
+  ficha: `Autoria: ${RC_ACERVO}, [reportagem e produção a confirmar] · Data: jun. 2023 · Veiculação: Programa Reportagem Especial`,
+  referencias: [
+    {
+      texto:
+        'CÂMARA DOS DEPUTADOS. Rádio Câmara. **50 anos da Barragem de Sobradinho**: capítulo 2. Reportagem Especial. Brasília: Câmara dos Deputados, 27 jun. 2023. 1 áudio (10 min 2 s). Disponível em: ' + URL_RC + '974973-50-anos-da-barragem-de-sobradinho-capitulo-2. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'CÂMARA DOS DEPUTADOS. Rádio Câmara. **50 anos da Barragem de Sobradinho**: capítulo 3. Reportagem Especial. Brasília: Câmara dos Deputados, 28 jun. 2023. 1 áudio (9 min 24 s). Disponível em: ' + URL_RC + '974964-50-anos-da-barragem-de-sobradinho-capitulo-3. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'CÂMARA DOS DEPUTADOS. Rádio Câmara. **50 anos da Barragem de Sobradinho**: capítulo 4. Reportagem Especial. Brasília: Câmara dos Deputados, 29 jun. 2023. 1 áudio (6 min 48 s). Disponível em: ' + URL_RC + '974957-50-anos-da-barragem-de-sobradinho-capitulo-4. Acesso em: 17 nov. 2026.',
+    },
+  ],
+}
