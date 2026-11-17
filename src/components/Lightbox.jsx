@@ -54,7 +54,7 @@ export default function Lightbox({ estado, onFechar, onNavegar }) {
           className="relative h-[55vh] min-h-[260px] overflow-hidden rounded-lg"
           style={{ background: foto.src ? undefined : foto.fundo }}
         >
-          {foto.src && <img src={foto.src} alt={foto.titulo} className="h-full w-full object-contain" />}
+          {foto.src && <img src={foto.src} alt={foto.alt ?? foto.titulo} className="h-full w-full object-contain" />}
           {varias && (
             <>
               <button
@@ -82,6 +82,18 @@ export default function Lightbox({ estado, onFechar, onNavegar }) {
           <h3 className="mt-1 font-serif text-3xl leading-tight text-areia">{foto.titulo}</h3>
           <p className="mt-3 text-lg text-areia-suave">{foto.legenda}</p>
           <p className="mt-3 text-sm text-areia-fosca">Ficha técnica: {foto.creditos}</p>
+          {foto.fonte && (
+            <p className="mt-2 text-sm">
+              <a
+                href={foto.fonte}
+                target="_blank"
+                rel="noreferrer"
+                className="text-terracota-claro underline underline-offset-2 hover:text-areia"
+              >
+                Ver página de origem
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </div>

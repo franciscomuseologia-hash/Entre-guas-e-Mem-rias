@@ -60,19 +60,421 @@ export const entrada = {
   nota: 'As imagens desta versão são ilustrativas, com espaços reservados para o acervo fotográfico, os créditos e os relatos orais.',
 }
 
+// Fotografia real: o arquivo fica em public/fotos/casa-nova/. `creditos` é a ficha iconográfica;
+// campos entre colchetes ainda precisam ser confirmados na página de origem (`fonte`).
+const AC = '[a confirmar]'
+const real = ({ id, arquivo, titulo, legenda, alt, creditos, fonte }) => ({
+  id: `casa-nova-${id}`,
+  cidade: 'Casa Nova',
+  titulo,
+  legenda,
+  alt: alt ?? titulo,
+  src: `/fotos/casa-nova/${arquivo}`,
+  creditos,
+  fonte,
+})
+
+const IBGE_FOTO = (extra) => `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia em preto e branco${extra ? ` · ${extra}` : ''}`
+const MEM_ELET = (extra) => `Autoria: ${AC} · Data: ${AC} · Acervo: Memória da Eletricidade · Técnica: fotografia colorida${extra ? ` · ${extra}` : ''}`
+const URL_IBGE = (id) => `https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=${id}`
+
+const FICHA_NV = `Autoria: ${AC} · Data: ${AC} · Acervo: Notícias do Vale (Instagram) · Técnica: fotografia colorida (possível restauração ou colorização digital, a confirmar)`
+const URL_NV = 'https://www.instagram.com/p/Dc1oQkolNeV/'
+
+const grupos = [
+  {
+    id: 'travessia',
+    titulo: 'A travessia do São Francisco',
+    texto:
+      'Durante boa parte do século XX, ir de Casa Nova a Juazeiro era questão de barco, vapor ou caminhão. O rio era estrada, e a travessia, parte do cotidiano.',
+    fotos: [
+      real({
+        id: 'travessia',
+        arquivo: 'travessia.jpg',
+        titulo: 'A travessia do São Francisco',
+        legenda: 'Margem do São Francisco em um registro fotográfico antigo: o rio como caminho entre as povoações.',
+        alt: 'Fotografia antiga em tom sépia da margem de um rio, com vegetação ao fundo e parte de uma figura humana no canto.',
+        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: Brasiliana Fotográfica · Técnica: fotografia em preto e branco (recorte de página de álbum)`,
+        fonte: 'https://brasilianafotografica.bn.gov.br/brasiliana/handle/20.500.12156.1/2863',
+      }),
+    ],
+  },
+  {
+    id: 'passado',
+    titulo: 'Antes da barragem: o passado',
+    texto:
+      'A cidade de ruas largas e casario baixo, com a torre da matriz como referência visível de longe. Segundo a prefeitura, a localidade surgiu no século XIX a partir do sal.',
+    fotos: [
+      real({
+        id: 'rua-igreja',
+        arquivo: 'passado-rua-igreja.jpg',
+        titulo: 'Rua calçada e a torre da igreja',
+        legenda: 'Rua com árvores, postes e pessoas a pé; ao fundo, a torre da igreja.',
+        alt: 'Rua calçada com árvores à esquerda, postes, casario à direita e a torre de uma igreja ao fundo.',
+        creditos: IBGE_FOTO(),
+        fonte: URL_IBGE(428427),
+      }),
+      real({
+        id: 'rua-caminhao',
+        arquivo: 'passado-rua-caminhao.jpg',
+        titulo: 'Rua com caminhão',
+        legenda: 'Rua de terra batida, com um caminhão à frente e a torre da igreja ao fundo.',
+        alt: 'Rua larga de terra com um caminhão ao fundo, árvores e uma torre de igreja.',
+        creditos: IBGE_FOTO(),
+        fonte: URL_IBGE(428431),
+      }),
+      real({
+        id: 'panorama',
+        arquivo: 'passado-panorama.jpg',
+        titulo: 'A cidade vista de longe',
+        legenda: 'Vista panorâmica do casario e da torre da igreja, com a escarpa ao fundo e a vegetação em primeiro plano.',
+        alt: 'Panorama distante da cidade com casas baixas, uma torre de igreja e um paredão rochoso ao fundo.',
+        creditos: IBGE_FOTO(),
+        fonte: URL_IBGE(428434),
+      }),
+      real({
+        id: 'hospital',
+        arquivo: 'passado-hospital.jpg',
+        titulo: 'Hospital Regional',
+        legenda: 'Edifício do Hospital Regional, de três corpos com telhados em quatro águas, cercado de mato.',
+        alt: 'Edifício branco de três corpos com a inscrição Hospital Regional na fachada e vegetação rasteira à frente.',
+        creditos: IBGE_FOTO(),
+        fonte: URL_IBGE(428436),
+      }),
+      real({
+        id: 'rua-arcos',
+        arquivo: 'passado-rua-arcos.jpg',
+        titulo: 'Rua dos arcos',
+        legenda: 'Rua de terra com muro de varas, edificações com arcos e a torre da igreja ao longe.',
+        alt: 'Rua de terra com um caminhão à esquerda, cercas de varas, um edifício com arcos e a torre da igreja ao fundo.',
+        creditos: IBGE_FOTO(),
+        fonte: URL_IBGE(428437),
+      }),
+      real({
+        id: 'matriz-rua',
+        arquivo: 'passado-matriz-rua.jpg',
+        titulo: 'A Igreja Matriz ao fim da rua',
+        legenda:
+          'A igreja matriz ao fundo de uma rua larga, entre postes e casas. Segundo relato publicado pela Agência Brasil, a antiga matriz foi implodida porque a altura da torre poderia oferecer risco à navegação.',
+        alt: 'Rua larga de terra com postes de energia e, ao fundo, uma igreja branca com torre.',
+        creditos: IBGE_FOTO(),
+        fonte: URL_IBGE(428429),
+      }),
+      real({
+        id: 'matriz-fachada',
+        arquivo: 'passado-matriz-fachada.jpg',
+        titulo: 'Fachada da Igreja Matriz',
+        legenda: 'Fachada frontal da matriz, com torre sineira e frontão ornamentado; duas pessoas atravessam o largo.',
+        alt: 'Fachada branca de igreja com torre sineira, frontão decorado e duas pessoas em frente.',
+        creditos: IBGE_FOTO(),
+        fonte: URL_IBGE(428435),
+      }),
+    ],
+  },
+  {
+    id: 'cotidiano',
+    titulo: 'Cenas do cotidiano',
+    texto:
+      'O rio, a feira, o campo de bola e a rua calçada: cenas do dia a dia reunidas pelo acervo digital do Notícias do Vale.',
+    fotos: [
+      real({
+        id: 'nv-porto',
+        arquivo: 'acervo-nv-1.jpg',
+        titulo: 'Embarcações na margem do rio',
+        legenda: 'Barcos de madeira atracados na margem arenosa, com pessoas caminhando entre as embarcações e arbustos floridos em primeiro plano.',
+        alt: 'Margem arenosa de um rio com barcos de madeira e mastros, pessoas caminhando e arbustos com flores rosadas em primeiro plano.',
+        creditos: FICHA_NV,
+        fonte: URL_NV,
+      }),
+      real({
+        id: 'nv-jumentos',
+        arquivo: 'acervo-nv-2.jpg',
+        titulo: 'Jumentos junto ao muro de pedra',
+        legenda: 'Um homem conduz jumentos ao lado de um muro de pedra; ao fundo, construções baixas e brancas.',
+        alt: 'Dois jumentos com um cavaleiro em uma estrada de terra ao lado de um muro de pedra, com edificações brancas ao fundo.',
+        creditos: FICHA_NV,
+        fonte: URL_NV,
+      }),
+      real({
+        id: 'nv-rua',
+        arquivo: 'acervo-nv-3.jpg',
+        titulo: 'Rua calçada e casario',
+        legenda: 'Rua de paralelepípedos entre casas coloridas; um homem de chapéu na porta e um caminhão estacionado à direita.',
+        alt: 'Rua calçada com casario baixo e colorido, um homem de chapéu à porta de uma casa e um caminhão de carroceria de madeira à direita.',
+        creditos: FICHA_NV,
+        fonte: URL_NV,
+      }),
+      real({
+        id: 'nv-futebol',
+        arquivo: 'acervo-nv-4.jpg',
+        titulo: 'Jogo no campo de terra',
+        legenda: 'Partida em campo de terra batida, com a plateia reunida em toda a borda e o casario ao fundo.',
+        alt: 'Jogadores em um campo de terra, uma multidão alinhada ao fundo e casas brancas na colina.',
+        creditos: FICHA_NV,
+        fonte: URL_NV,
+      }),
+      real({
+        id: 'nv-feira',
+        arquivo: 'acervo-nv-5.jpg',
+        titulo: 'Dia de feira',
+        legenda: 'Feira com cestos, frutas e verduras, rodeada de pessoas conversando sob toldos.',
+        alt: 'Cena de feira ao ar livre, com um cesto de palha em primeiro plano, bancas de frutas e verduras e muitas pessoas.',
+        creditos: FICHA_NV,
+        fonte: URL_NV,
+      }),
+      real({
+        id: 'nv-igreja',
+        arquivo: 'acervo-nv-6.jpg',
+        titulo: 'A igreja e a rua',
+        legenda: 'Igreja de torre sineira com cúpula ao fim de uma rua larga; pedestres, crianças e um automóvel ao longe.',
+        alt: 'Igreja branca com torre sineira ao fundo de uma rua larga, com pessoas na calçada e um carro pequeno.',
+        creditos: FICHA_NV,
+        fonte: URL_NV,
+      }),
+    ],
+  },
+  {
+    id: 'barragem',
+    titulo: 'A barragem',
+    texto:
+      'A barragem de Sobradinho formou o lago que cobriu a sede original de Casa Nova, além de Remanso, Pilão Arcado e Sento Sé.',
+    fotos: [
+      real({
+        id: 'barragem',
+        arquivo: 'barragem.jpg',
+        titulo: 'Sobradinho: a barragem e o lago',
+        legenda:
+          'Vista aérea da barragem de Sobradinho, descrita na própria fotografia como garantia de vazão para as usinas da Chesf e elo da interligação dos sistemas elétricos Norte e Nordeste.',
+        alt: 'Vista aérea da barragem de Sobradinho, com o lago à esquerda e a subestação e o canal à direita.',
+        creditos: MEM_ELET('título no acervo: “Lago de Sobradinho”'),
+        fonte: 'https://memoriadaeletricidade.com.br/acervo/118085/lago-de-sobradinho',
+      }),
+    ],
+  },
+  {
+    id: 'nova-cidade',
+    titulo: 'A nova cidade e a realocação',
+    texto:
+      'Entre 1975 e 1977, quase 12 mil famílias de Casa Nova, Remanso, Pilão Arcado e Sento Sé foram obrigadas a deixar suas casas. As novas sedes foram construídas pela Chesf, e Casa Nova passou a ficar à beira da BR-235.',
+    fotos: [
+      real({
+        id: 'nova-aerea',
+        arquivo: 'nova-vista-aerea.jpg',
+        titulo: 'Vista aérea da nova Casa Nova',
+        legenda: 'Vista aérea da nova cidade, “relocada para a formação do lago de Sobradinho”, com o traçado em quadras e o lago ao fundo.',
+        alt: 'Vista aérea de uma cidade planejada, com ruas em curva, quadras regulares e o lago ao fundo.',
+        creditos: MEM_ELET('título no acervo: “Cidade de Casa Nova”'),
+        fonte: 'https://memoriadaeletricidade.com.br/acervo/118081/cidade-de-casa-nova',
+      }),
+      real({
+        id: 'nova-praca',
+        arquivo: 'nova-praca.jpg',
+        titulo: 'Praça principal e prédios públicos',
+        legenda: 'Praça pavimentada com blocos intertravados e os prédios públicos da nova cidade.',
+        alt: 'Praça ampla pavimentada com blocos hexagonais, canteiros, pessoas ao longe e edifícios públicos baixos.',
+        creditos: MEM_ELET('título no acervo: “Cidade de Casa Nova”'),
+        fonte: 'https://memoriadaeletricidade.com.br/acervo/118082/cidade-de-casa-nova',
+      }),
+      real({
+        id: 'nova-igreja',
+        arquivo: 'nova-igreja.jpg',
+        titulo: 'Igreja Católica da nova cidade',
+        legenda: 'A igreja da nova Casa Nova, de linhas modernas, com torre sineira e esquadrias em arco.',
+        alt: 'Igreja moderna branca com torre sineira vazada, janelas em arco e telhado de telhas, sob um céu com nuvens.',
+        creditos: MEM_ELET('título no acervo: “Cidade de Casa Nova”'),
+        fonte: 'https://memoriadaeletricidade.com.br/acervo/118083/cidade-de-casa-nova',
+      }),
+      real({
+        id: 'nova-edificio',
+        arquivo: 'nova-edificio-praca.jpg',
+        titulo: 'Edifício e praça sob céu carregado',
+        legenda: 'Edifício público e mastros de bandeira diante de uma praça pavimentada, sob nuvens pesadas.',
+        alt: 'Praça pavimentada em primeiro plano e, ao fundo, um edifício baixo e branco com mastros de bandeira sob céu nublado.',
+        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia colorida · Localização na sala: ${AC}`,
+        fonte: URL_IBGE(428441),
+      }),
+      real({
+        id: 'nova-rua',
+        arquivo: 'nova-rua.jpg',
+        titulo: 'Rua da nova cidade',
+        legenda: 'Rua calçada com carros estacionados, entre árvores e uma praça gramada.',
+        alt: 'Rua de paralelepípedos com carros estacionados à esquerda, árvores e uma praça gramada à direita.',
+        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia colorida · Localização na sala: ${AC}`,
+        fonte: URL_IBGE(428442),
+      }),
+      real({
+        id: 'nova-igreja-praca',
+        arquivo: 'nova-igreja-praca.jpg',
+        titulo: 'A igreja e a praça',
+        legenda: 'A igreja ao fundo de uma praça gramada; um ciclista cruza o calçamento em primeiro plano.',
+        alt: 'Praça gramada cercada por calçada de blocos, com uma igreja ao fundo e um homem de bicicleta à direita.',
+        creditos: `Autoria: ${AC} · Data: ${AC} · Acervo: IBGE, Biblioteca · Técnica: fotografia colorida · Localização na sala: ${AC}`,
+        fonte: URL_IBGE(428443),
+      }),
+    ],
+  },
+  {
+    id: 'ruinas',
+    titulo: 'As ruínas',
+    texto:
+      'Em 2015, com o lago a pouco mais de 1% da capacidade, as ruínas da antiga Casa Nova apareceram. Segundo a reportagem, foi a primeira vez em quase 40 anos de barragem.',
+    fotos: [
+      real({
+        id: 'ruinas',
+        arquivo: 'ruinas-2015.jpg',
+        titulo: 'Ruínas de Casa Nova',
+        legenda:
+          'Alicerces, pedras e estacas de madeira da antiga cidade expostos pela seca à beira do lago, em dezembro de 2015.',
+        alt: 'Margem do lago coberta de pedras e tijolos, estacas de madeira, um muro de alvenaria, um cachorro e, ao fundo, a água e uma serra plana.',
+        creditos: 'Autoria: Marcello Casal Jr · Data: dez. 2015 · Acervo: Agência Brasil · Técnica: fotografia colorida digital',
+        fonte: 'https://agenciabrasil.ebc.com.br/es/node/991963',
+      }),
+    ],
+  },
+]
+
+const URL_MAPA_IBGE =
+  'https://geoftp.ibge.gov.br/cartas_e_mapas/mapas_para_fins_de_levantamentos_estatisticos/censo_demografico_2022/mapas_municipais_estatisticos/BA/casa_nova_2907202/casa_nova_2907202_mme_a0.pdf'
+
+const mapa = {
+  titulo: 'O território',
+  texto:
+    'Casa Nova ocupa 9.657,51 km², um dos maiores municípios da Bahia em extensão. No mapa, o lago de Sobradinho domina o sul do território e a sede aparece em sua margem, onde a cidade foi refeita.',
+  foto: real({
+    id: 'mapa',
+    arquivo: 'mapa-ibge.jpg',
+    titulo: 'Mapa municipal estatístico de Casa Nova (BA)',
+    legenda:
+      'Mapa municipal sobre imagem de satélite, com os limites do município, as rodovias, as localidades e o lago de Sobradinho. Código do município: 2907202.',
+    alt: 'Mapa de satélite do município de Casa Nova, com os limites municipais em laranja, estradas e o lago de Sobradinho em azul ao sul.',
+    creditos: 'Autoria: IBGE · Data: [2022, a confirmar] · Acervo: IBGE, mapas municipais estatísticos do Censo Demográfico 2022 · Técnica: mapa digital sobre imagem de satélite',
+    fonte: URL_MAPA_IBGE,
+  }),
+}
+
+const FICHA_RAIMUNDO = (acervo) => `Autoria: ${AC} · Data: ${AC} · Acervo: ${acervo} · Técnica: fotografia digital`
+const PERFIL = 'perfil @raimundo100anos (Instagram)'
+const URL_PERFIL = 'https://www.instagram.com/raimundo100anos/'
+
+const morador = {
+  titulo: 'Morador ilustre: Raimundo “Preto” Aprígio',
+  subtitulo: 'Ouricuri, distrito de Casa Nova · nascido em 31 de agosto de 1921',
+  texto: [
+    'Raimundo Aprígio de Souza, conhecido como Raimundo Preto, nasceu em Ouricuri, distrito de Casa Nova, em 31 de agosto de 1921, e foi o quarto filho de Amazilia Maria da Conceição. Na roça, aprendeu os segredos da natureza e o trato com os animais. Católico fervoroso, desde cedo ajudava a mãe nas rezas de São Sebastião.',
+    'Sem estudos formais, tornou-se o “enfermeiro do povo e veterinário de animais” da comunidade: era procurado para aplicar injeções e cuidar dos bichos. Guarda na memória datas, nomes e casos, entre eles as histórias da Guerra do Pau de Colher, e lembra que, jovem, ia a pé até Petrolina tangendo bodes e se alegrava ao avistar as torres da catedral.',
+    'Em 2021, aos cem anos, foi registrado como referência da comunidade de Ouricuri. Em 2026, a tradicional barraca de Ouricuri na 35ª Festa do Interior de Casa Nova teve como tema Raimundo Preto e a Igreja de Ouricuri, em reconhecimento à sua trajetória de fé, trabalho e dedicação à comunidade.',
+  ],
+  fotos: [
+    real({
+      id: 'raimundo-1',
+      arquivo: 'morador-1.jpg',
+      titulo: 'Retrato com chapéu de couro',
+      legenda: 'Retrato de Raimundo Preto, de chapéu de couro e óculos, com camiseta branca de festas de fim de ano.',
+      alt: 'Homem idoso de chapéu de couro marrom, óculos e barba branca, com camiseta branca de gola verde estampada com a mensagem Boas Festas.',
+      creditos: FICHA_RAIMUNDO('Notícias do Vale (reportagem de 2 jul. 2026)'),
+      fonte: 'https://noticiasdovale1.com.br/ouricuri-homenageia-raimundo-preto-pelos-104-anos-de-historia-na-35a-festa-do-interior-de-casa-nova/',
+    }),
+    real({
+      id: 'raimundo-2',
+      arquivo: 'morador-2.jpg',
+      titulo: 'Entre vasos e palhas',
+      legenda: 'Sentado, de chapéu e bengala, diante de uma mesa e de vasos de barro, em um espaço decorado com palha.',
+      alt: 'Homem idoso sentado em cadeira laranja, de chapéu e camisa listrada, com uma bengala; ao fundo, folhas de palmeira e um vaso de barro.',
+      creditos: FICHA_RAIMUNDO(PERFIL),
+      fonte: URL_PERFIL,
+    }),
+    real({
+      id: 'raimundo-3',
+      arquivo: 'morador-3.jpg',
+      titulo: 'Em casa, de bengala',
+      legenda: 'Raimundo Preto sentado em casa, com a bengala apoiada no ombro.',
+      alt: 'Homem idoso de cabelos brancos, camisa listrada e bermuda cinza, sentado em uma cadeira de vime com uma bengala; ao fundo, uma motocicleta.',
+      creditos: FICHA_RAIMUNDO(PERFIL),
+      fonte: URL_PERFIL,
+    }),
+    real({
+      id: 'raimundo-4',
+      arquivo: 'morador-4.jpg',
+      titulo: 'Ao lado de uma criança',
+      legenda: 'Sentado em uma cadeira, de boné e óculos, ao lado de uma criança sorridente.',
+      alt: 'Homem idoso de boné verde e óculos, sentado em uma cadeira roxa, ao lado de uma menina de vestido claro estampado de corações.',
+      creditos: FICHA_RAIMUNDO(PERFIL),
+      fonte: URL_PERFIL,
+    }),
+  ],
+}
+
 export const casaNova = {
   id: 'casa-nova',
   titulo: 'Casa Nova',
-  intro:
-    'Beira de rio, quintal aberto, rua de chão batido. Aqui a memória é feita de gestos pequenos: a rede armada, o barco na margem, o largo em dia de festa.',
-  audio: { src: '/audio/casa-nova.mp3', titulo: 'Paisagem sonora de Casa Nova' },
-  fotos: [
-    foto('Casa Nova', 1, 'Margem ao entardecer', 'O rio ensinou a casa a esperar a cheia; a barragem ensinou a casa a viver debaixo dela.', FUNDOS.entardecer, 340),
-    foto('Casa Nova', 2, 'Mãos que ainda tecem', 'Um ofício que atravessa a água: o gesto permanece quando o chão muda de lugar.', FUNDOS.terra, 240),
-    foto('Casa Nova', 3, 'Rua de chão batido', 'Registro do traçado urbano antigo, hoje conhecido apenas pela memória de quem andou nele.', FUNDOS.barro, 300),
-    foto('Casa Nova', 4, 'Barco na margem', 'O barco esperava o rio; o rio virou lago e a espera mudou de natureza.', FUNDOS.rio, 380),
-    foto('Casa Nova', 5, 'Quintal e cerca', 'Fronteira simples de varas e arame, última linha entre a casa e o caminho.', FUNDOS.seca, 230),
-    foto('Casa Nova', 6, 'Festa de largo', 'O largo era sala comum da cidade; reunir-se ali era também uma forma de pertencer.', FUNDOS.noite, 300),
+  abertura: [
+    'Casa Nova nasceu às margens do São Francisco, na primeira metade do século XIX, a partir da descoberta e do comércio do sal. Elevada a município por lei provincial de 1879, com o nome de São José do Riacho de Casa Nova, foi desmembrada de Remanso, que já pertencera a Pilão Arcado. Até meados do século XX, quem partia dali para Salvador seguia de barco, vapor ou caminhão até Juazeiro, onde tomava o trem.',
+    'Dois acontecimentos marcam sua história: o massacre de Pau de Colher, em 1938, e a mudança da cidade, em 1976. A barragem de Sobradinho formou o lago que cobriu a sede original. Casa Nova, antes no fim de uma estrada, passou a ficar à beira da BR-235. Em 1974, um decreto-lei incluiu Casa Nova, Remanso, Pilão Arcado e Sento Sé entre os municípios de interesse da segurança nacional, e seus prefeitos deixaram de ser eleitos até 1985.',
+    'Esta sala percorre seis momentos: a travessia do rio, a cidade de antes, o cotidiano, a barragem, a cidade reconstruída e as ruínas que a seca devolve ao olhar.',
+  ],
+  intro: 'A cidade que o rio fez, a água cobriu e a seca, às vezes, devolve.',
+  audio: { src: '/audio/casa-nova.mp3', titulo: '“Abraço do Tempo”, Puro Suco' },
+  mapa,
+  grupos,
+  morador,
+  fotos: grupos.flatMap((g) => g.fotos),
+  referencias: [
+    {
+      texto:
+        'CASA NOVA. Prefeitura Municipal. **O Município**: a história. Casa Nova: Prefeitura Municipal, [2026]. Disponível em: https://casanova.ba.gov.br/o-municipio/. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'NOGUEIRA, Edwirges. Aparição de ruínas revela memórias de moradores de cidades inundadas na Bahia. **Agência Brasil**, Brasília, 28 dez. 2015. Disponível em: https://agenciabrasil.ebc.com.br/es/node/991963. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'CASAL JR., Marcello. **Casa Nova**: seca expõe ruínas de cidades inundadas para a construção da barragem de Sobradinho, no fim da década de 1970. Brasília: Agência Brasil, dez. 2015. 1 fotografia, color. Disponível em: https://agenciabrasil.ebc.com.br/es/node/991963. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). **Casa Nova**: histórico. Cidades@. Rio de Janeiro: IBGE, [s.d.]. Disponível em: https://cidades.ibge.gov.br/brasil/ba/casa-nova/historico. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). **Casa Nova (BA)**: [título a confirmar]. Rio de Janeiro: IBGE, Biblioteca, [data a confirmar]. Fotografias. Disponível em: https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=428427 (e ids 428429, 428431, 428434, 428435, 428436, 428437, 428441, 428442, 428443). Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'MEMÓRIA DA ELETRICIDADE. **Lago de Sobradinho**. [Local]: Memória da Eletricidade, [data a confirmar]. 1 fotografia, color. Disponível em: https://memoriadaeletricidade.com.br/acervo/118085/lago-de-sobradinho. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'MEMÓRIA DA ELETRICIDADE. **Cidade de Casa Nova**. [Local]: Memória da Eletricidade, [data a confirmar]. 3 fotografias, color. Disponível em: https://memoriadaeletricidade.com.br/acervo/118081/cidade-de-casa-nova (e 118082, 118083). Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'BRASILIANA FOTOGRÁFICA. **A travessia do São Francisco**. [Local]: [instituição a confirmar], [data a confirmar]. 1 fotografia. Disponível em: https://brasilianafotografica.bn.gov.br/brasiliana/handle/20.500.12156.1/2863. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'PURO SUCO. **Abraço do Tempo**. [Local]: [gravadora a confirmar], [ano a confirmar]. 1 áudio (3 min 37 s).',
+    },
+    {
+      texto:
+        'NOTÍCIAS DO VALE. **[Acervo fotográfico]**. Instagram: @noticiasdovale1, [data a confirmar]. Disponível em: https://www.instagram.com/p/Dc1oQkolNeV/. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). **Casa Nova - BA**: mapa municipal estatístico. Rio de Janeiro: IBGE, [2022]. 1 mapa, color. Censo Demográfico 2022. Disponível em: ' + URL_MAPA_IBGE + '. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'SOUZA, Sebastiana de. Raimundo Aprígio, um século de vida! Hoje completa 100 anos de idade. **Blog Vinicius de Santana**, [S. l.], 31 ago. 2021. Disponível em: https://blogviniciusdesantana.com/2021/08/raimundo-aprigio-um-seculo-de-vida/. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'OURICURI homenageia Raimundo Preto pelos 104 anos de história na 35ª Festa do Interior de Casa Nova. **Notícias do Vale**, [S. l.], 2 jul. 2026. Disponível em: https://noticiasdovale1.com.br/ouricuri-homenageia-raimundo-preto-pelos-104-anos-de-historia-na-35a-festa-do-interior-de-casa-nova/. Acesso em: 17 nov. 2026.',
+    },
+    {
+      texto:
+        'RAIMUNDO100ANOS. **[Fotografias de Raimundo Preto]**. Instagram: @raimundo100anos, [data a confirmar]. Disponível em: https://www.instagram.com/raimundo100anos/. Acesso em: 17 nov. 2026.',
+    },
   ],
 }
 
