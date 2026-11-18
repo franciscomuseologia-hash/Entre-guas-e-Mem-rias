@@ -15,6 +15,19 @@ import { circuito } from './data'
 import { useRota } from './useRota'
 import { SomProvider } from './som'
 
+// Camadas de fundo: curvas de nível, chão (barro ou concreto), brilho e grão.
+// As texturas de cada sala ficam no index.css, escolhidas por data-sala.
+function Fundo() {
+  return (
+    <div className="fundo" aria-hidden="true">
+      <div className="fundo__a" />
+      <div className="fundo__b" />
+      <div className="fundo__brilho" />
+      <div className="fundo__grao" />
+    </div>
+  )
+}
+
 export default function App() {
   // estado do lightbox: { itens: [...fotos do grupo], indice }
   const [lightbox, setLightbox] = useState(null)
@@ -31,9 +44,8 @@ export default function App() {
     []
   )
 
-  // Ao trocar de sala: volta ao topo, fecha o lightbox, atualiza o título e move o foco.
+  // Ao trocar de sala: fecha o lightbox, atualiza o título e move o foco.
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
     setLightbox(null)
     const rotulo = circuito.find((c) => c.id === sala)?.rotulo
     document.title = `${rotulo} · Entre Águas e Memórias`
@@ -47,19 +59,24 @@ export default function App() {
     remanso: <Remanso onAbrir={abrir} />,
     'pilao-arcado': <PilaoArcado onAbrir={abrir} />,
     'sento-se': <SentoSe onAbrir={abrir} />,
+    fechamento: <Fechamento />,
     trilha: <Trilha />,
     'material-adicional': <MaterialAdicional />,
-    fechamento: <Fechamento />,
   }
 
   return (
     <SomProvider sala={sala}>
-      <Nav atual={sala} />
-      <main ref={principal} tabIndex={-1} className="outline-none">
-        {salas[sala]}
-        <ProximaSala atual={sala} />
-      </main>
-      <Lightbox estado={lightbox} onFechar={fechar} onNavegar={navegar} />
+      <div className="app relative min-h-[100svh]" data-sala={sala}>
+        <Fundo />
+        <div className="relative z-10">
+          <Nav atual={sala} />
+          <main ref={principal} tabIndex={-1} className="outline-none">
+            {salas[sala]}
+            <ProximaSala atual={sala} />
+          </main>
+        </div>
+        <Lightbox estado={lightbox} onFechar={fechar} onNavegar={navegar} />
+      </div>
     </SomProvider>
   )
 }

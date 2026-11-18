@@ -8,8 +8,12 @@ export default function TrilhaSonora({ audio, className = '' }) {
 
   if (tocando?.src === audio.src)
     return (
-      <p className={`flex items-center gap-2 text-sm text-sf-claro ${className}`}>
-        <Music size={16} aria-hidden="true" />
+      <p className={`flex items-center gap-3 text-sm text-areia-fosca ${className}`}>
+        <span className="eq text-terracota-claro" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
         <span>
           Tocando agora: <span className="text-areia-suave">{audio.titulo}</span>
         </span>
@@ -18,11 +22,7 @@ export default function TrilhaSonora({ audio, className = '' }) {
 
   if (!ativo)
     return (
-      <button
-        type="button"
-        onClick={ligar}
-        className={`inline-flex min-h-[44px] items-center gap-2 rounded-md border border-sf/60 px-4 py-2 text-sm text-sf-claro transition-colors hover:bg-sf/20 ${className}`}
-      >
+      <button type="button" onClick={ligar} className={`btn text-base ${className}`}>
         <Music size={16} aria-hidden="true" />
         Ativar a trilha sonora
       </button>

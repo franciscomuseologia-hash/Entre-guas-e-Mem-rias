@@ -11,13 +11,26 @@ export default function SomBotao() {
       type="button"
       onClick={alternar}
       aria-pressed={ativo}
+      aria-label={rotulo}
       title={tocando ? `Tocando: ${tocando.titulo}` : 'Ativar ou desativar a trilha sonora'}
-      className={`flex min-h-[44px] items-center gap-2 rounded px-3 py-2.5 text-sm transition-colors ${
-        ativo ? 'bg-sf/40 text-areia' : 'border border-neutral-700 text-areia-suave hover:text-areia'
+      className={`flex min-h-[44px] items-center gap-2 border px-3 transition-colors active:bg-terracota/20 ${
+        ativo
+          ? 'border-terracota/60 bg-terracota/15 text-areia'
+          : 'border-neutral-700 text-areia-suave hover:text-areia'
       }`}
     >
-      {ativo ? <Volume2 size={18} aria-hidden="true" /> : <VolumeX size={18} aria-hidden="true" />}
-      <span>{rotulo}</span>
+      {ativo && tocando ? (
+        <span className="eq text-terracota-claro" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
+      ) : ativo ? (
+        <Volume2 size={18} aria-hidden="true" />
+      ) : (
+        <VolumeX size={18} aria-hidden="true" />
+      )}
+      <span className="hidden sm:inline">{rotulo}</span>
     </button>
   )
 }

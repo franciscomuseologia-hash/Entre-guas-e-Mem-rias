@@ -409,6 +409,24 @@ const morador = {
 export const casaNova = {
   id: 'casa-nova',
   titulo: 'Casa Nova',
+  // Linha do tempo da Apresentação; `aba` leva às fotografias do momento.
+  linhaDoTempo: [
+    { ano: 'Século XIX', texto: 'A localidade nasce às margens do São Francisco, a partir do sal.', aba: 'antes' },
+    { ano: '1879', texto: 'Lei provincial eleva a povoação a município, com o nome de São José do Riacho de Casa Nova.', aba: 'antes' },
+    { ano: '1938', texto: 'Massacre de Pau de Colher, um dos acontecimentos que marcam a história do município.', aba: null },
+    { ano: '1973', texto: 'Começam as obras da barragem de Sobradinho.', aba: 'barragem' },
+    { ano: '1974', texto: 'Decreto-lei inclui Casa Nova entre os municípios de interesse da segurança nacional; os prefeitos deixam de ser eleitos até 1985.', aba: null },
+    { ano: '1975 a 1977', texto: 'Quase 12 mil famílias de Casa Nova, Remanso, Pilão Arcado e Sento Sé são obrigadas a deixar suas casas.', aba: 'nova-cidade' },
+    { ano: '1976', texto: 'Casa Nova é refeita em outro lugar, agora à beira da BR-235.', aba: 'nova-cidade' },
+    { ano: '2015', texto: 'A seca faz as ruínas da antiga cidade reaparecerem, a primeira vez em quase 40 anos de barragem, segundo a reportagem.', aba: 'ruinas' },
+  ],
+  // Díptico da aba "A nova cidade": a igreja antes e depois do lago (ids de fotos já existentes).
+  diptico: {
+    titulo: 'Duas igrejas, duas cidades',
+    texto: 'À esquerda, a matriz da antiga Casa Nova. À direita, a igreja da nova Casa Nova.',
+    esquerda: 'casa-nova-matriz-fachada',
+    direita: 'casa-nova-nova-igreja',
+  },
   abertura: [
     'Casa Nova nasceu às margens do São Francisco, na primeira metade do século XIX, a partir da descoberta e do comércio do sal. Elevada a município por lei provincial de 1879, com o nome de São José do Riacho de Casa Nova, foi desmembrada de Remanso, que já pertencera a Pilão Arcado. Até meados do século XX, quem partia dali para Salvador seguia de barco, vapor ou caminhão até Juazeiro, onde tomava o trem.',
     'Dois acontecimentos marcam sua história: o massacre de Pau de Colher, em 1938, e a mudança da cidade, em 1976. A barragem de Sobradinho formou o lago que cobriu a sede original. Casa Nova, antes no fim de uma estrada, passou a ficar à beira da BR-235. Em 1974, um decreto-lei incluiu Casa Nova, Remanso, Pilão Arcado e Sento Sé entre os municípios de interesse da segurança nacional, e seus prefeitos deixaram de ser eleitos até 1985.',

@@ -3,13 +3,10 @@ import { fechamento } from '../data'
 
 export default function Fechamento() {
   return (
-    <section
-      id={fechamento.id}
-      className="scroll-mt-16"
-      style={{ background: 'radial-gradient(ellipse at 50% -20%, #1B4965 0%, #121212 70%)' }}
-    >
-      <div className="mx-auto max-w-3xl px-6 pb-16 pt-28 text-center">
-        <h2 className="font-serif text-4xl font-semibold sm:text-6xl">{fechamento.titulo}</h2>
+    <section id={fechamento.id}>
+      <div className="mx-auto max-w-3xl px-6 pb-20 pt-20 text-center sm:pt-28">
+        <h2 className="text-5xl sm:text-7xl">{fechamento.titulo}</h2>
+        <span className="fio mx-auto mt-6" aria-hidden="true" />
         <p className="mt-6 text-lg text-areia-suave">{fechamento.texto}</p>
         <blockquote className="mt-16 font-serif text-3xl italic leading-snug sm:text-5xl">
           “{fechamento.citacao}”

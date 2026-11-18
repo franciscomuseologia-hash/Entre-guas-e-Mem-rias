@@ -5,7 +5,7 @@ import { sentoSe } from '../data'
 export default function SentoSe({ onAbrir }) {
   const { id, titulo, intro, audio, pares } = sentoSe
   return (
-    <section id={id} className="scroll-mt-16 border-b border-neutral-800 bg-maré">
+    <section id={id} className="scroll-mt-16">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <NucleoCabecalho titulo={titulo} intro={intro} audio={audio} />
         <div className="space-y-12">
