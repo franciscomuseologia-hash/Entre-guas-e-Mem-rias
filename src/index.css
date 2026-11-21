@@ -450,3 +450,107 @@
     opacity: 0;
   }
 }
+
+/* ------------------------------------------------------------------
+   Mapa real da Trilha (Leaflet): o mapa claro é escurecido para combinar com o site.
+------------------------------------------------------------------- */
+.mapa-real {
+  background: rgb(var(--terra));
+  font-family: inherit;
+}
+.mapa-real .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.8) saturate(0.75) contrast(0.95);
+}
+.mapa-real .leaflet-control-attribution {
+  background: rgb(var(--fundo) / 0.8);
+  color: rgb(var(--areia-fosca));
+  font-size: 11px;
+}
+.mapa-real .leaflet-control-attribution a {
+  color: rgb(var(--areia-suave));
+}
+.mapa-real .leaflet-bar a,
+.mapa-real .leaflet-bar a:hover {
+  background: rgb(var(--terra));
+  color: rgb(var(--areia));
+  border-color: rgb(var(--concreto));
+}
+.mk-wrap {
+  background: none;
+  border: 0;
+}
+.mk {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.mk__dot {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid rgb(var(--areia));
+  background: rgb(var(--acento));
+  box-shadow: 0 0 0 4px rgb(var(--acento) / 0.25);
+  transition: transform 0.2s var(--ease-out);
+}
+.mk__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgb(var(--acento) / 0.45);
+  animation: mk-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.mk__nome {
+  position: absolute;
+  font-family: theme('fontFamily.display');
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgb(var(--areia));
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.95), 0 0 10px rgb(0 0 0 / 0.85);
+}
+.mk--baixo .mk__nome {
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mk--cima .mk__nome {
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mk--esq .mk__nome {
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.mk--dir .mk__nome {
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mk:hover .mk__dot {
+    transform: scale(1.25);
+  }
+}
+.leaflet-marker-icon:focus-visible .mk__dot {
+  outline: 2px solid rgb(var(--acento-claro));
+  outline-offset: 3px;
+}
+@keyframes mk-ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mk__pulse {
+    animation: none;
+    opacity: 0;
+  }
+}

@@ -124,6 +124,9 @@ export default function Lightbox({ estado, onFechar, onNavegar }) {
         </p>
         <h3 className="mt-2 font-serif text-3xl font-semibold leading-tight text-areia">{foto.titulo}</h3>
         <p className="mt-4 text-lg text-areia-suave">{foto.legenda}</p>
+        {foto.aviso && (
+          <p className="mt-3 inline-block border border-terracota/60 px-2 py-1 text-sm text-terracota-claro">{foto.aviso}</p>
+        )}
 
         <dl className="mt-8 grid grid-cols-[6.5rem_1fr] gap-x-4 gap-y-3 border-t border-neutral-800 pt-6 text-sm">
           {ficha.map((f, k) => (

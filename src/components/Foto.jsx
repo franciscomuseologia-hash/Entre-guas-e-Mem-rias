@@ -52,6 +52,11 @@ export default function Foto({ foto, onAbrir, altura, mostrarTitulo = true, rotu
             {rotulo ?? foto.titulo}
           </span>
           {meta && <span className="mt-0.5 block text-sm text-areia-fosca">{meta}</span>}
+          {foto.aviso && (
+            <span className="mt-1.5 inline-block border border-terracota/60 px-2 py-0.5 text-xs text-terracota-claro">
+              {foto.aviso}
+            </span>
+          )}
         </figcaption>
       )}
     </figure>

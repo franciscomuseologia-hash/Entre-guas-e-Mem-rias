@@ -1,5 +1,6 @@
 import AudioPlayer from '../components/AudioPlayer'
-import { materialAdicional } from '../data'
+import GruposDeVideos from '../components/GruposDeVideos'
+import { materialAdicional, referenciasVideosPilao, videosPilao } from '../data'
 
 // Renderiza **negrito** e transforma URLs em links (formato das referências ABNT).
 function Referencia({ texto }) {
@@ -65,10 +66,18 @@ export default function MaterialAdicional() {
 
         <p className="mt-14 text-sm text-areia-fosca">Ficha técnica: {ficha}</p>
 
+        <div className="mt-24">
+          <h3 className="font-serif text-3xl font-semibold text-areia sm:text-4xl">Pilão Arcado Velho, em vídeo</h3>
+          <p className="mb-10 mt-3 max-w-2xl text-lg text-areia-suave">
+            Vídeos de terceiros, incorporados do YouTube: o território antes da inundação, o que as águas transformaram e a proposta de tombamento.
+          </p>
+          <GruposDeVideos dados={videosPilao} />
+        </div>
+
         <aside aria-label="Fontes e referências" className="mt-10 border-t border-neutral-800 pt-8">
           <h3 className="font-serif text-xl text-areia">Fontes e referências</h3>
           <ul className="mt-4 space-y-3 text-sm text-areia-fosca">
-            {referencias.map((r) => (
+            {[...referencias, ...referenciasVideosPilao].map((r) => (
               <li key={r.texto}>
                 <Referencia texto={r.texto} />
               </li>

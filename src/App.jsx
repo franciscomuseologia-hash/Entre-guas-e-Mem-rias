@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import Acessibilidade from './components/Acessibilidade'
+import ErroDeSala from './components/ErroDeSala'
 import Nav from './components/Nav'
 import Lightbox from './components/Lightbox'
 import ProximaSala from './components/ProximaSala'
@@ -56,9 +58,9 @@ export default function App() {
     entrada: <Entrada />,
     curadoria: <Curadoria />,
     'casa-nova': <CasaNova onAbrir={abrir} aba={aba} />,
-    remanso: <Remanso onAbrir={abrir} />,
-    'pilao-arcado': <PilaoArcado onAbrir={abrir} />,
-    'sento-se': <SentoSe onAbrir={abrir} />,
+    remanso: <Remanso onAbrir={abrir} aba={aba} />,
+    'pilao-arcado': <PilaoArcado onAbrir={abrir} aba={aba} />,
+    'sento-se': <SentoSe onAbrir={abrir} aba={aba} />,
     fechamento: <Fechamento />,
     trilha: <Trilha />,
     'material-adicional': <MaterialAdicional />,
@@ -68,10 +70,24 @@ export default function App() {
     <SomProvider sala={sala}>
       <div className="app relative min-h-[100svh]" data-sala={sala}>
         <Fundo />
+        <a
+          href="#conteudo"
+          className="fixed left-3 top-3 z-[70] -translate-y-24 bg-areia px-4 py-3 font-display text-lg font-semibold text-ink transition-transform focus:translate-y-0"
+          onClick={(e) => {
+            e.preventDefault()
+            principal.current?.focus()
+          }}
+        >
+          Ir para o conteúdo
+        </a>
+        <p className="sr-only" role="status" aria-live="polite">
+          {`Sala: ${circuito.find((c) => c.id === sala)?.rotulo}`}
+        </p>
+        <Acessibilidade />
         <div className="relative z-10">
           <Nav atual={sala} />
-          <main ref={principal} tabIndex={-1} className="outline-none">
-            {salas[sala]}
+          <main id="conteudo" ref={principal} tabIndex={-1} className="outline-none">
+            <ErroDeSala key={sala}>{salas[sala]}</ErroDeSala>
             <ProximaSala atual={sala} />
           </main>
         </div>

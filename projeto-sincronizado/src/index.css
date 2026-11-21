@@ -1,0 +1,542 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Paleta: três materiais do território.
+   Barro (sertão) · Água (rio São Francisco) · Concreto (barragem)
+   Valores em canais "r g b" para aceitarem opacidade no Tailwind.
+------------------------------------------------------------------- */
+:root {
+  --fundo: 26 19 14; /* barro queimado   #1A130E */
+  --terra: 43 32 24; /* terra de cacimba #2B2018 */
+  --concreto: 90 87 80; /* concreto         #5A5750 */
+  --concreto-claro: 167 164 154;
+  --areia: 237 226 206; /* areia            #EDE2CE */
+  --areia-suave: 214 200 176;
+  --areia-fosca: 168 151 127;
+  --rio-verde: 77 179 156;
+  --rio-azul: 79 157 190;
+  --ocre: 210 160 74;
+  --telha: 196 106 60;
+  --sf: 29 90 107;
+  --sf-claro: 127 192 216;
+
+  /* acento da sala (muda em [data-sala]) */
+  --acento: 88 181 166;
+  --acento-claro: 128 205 192;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --nav-h: calc(3.5rem + env(safe-area-inset-top, 0px));
+  --dir: 1;
+  color-scheme: dark;
+}
+
+/* Cada sala tem um acento próprio: rio, ocre, telha, concreto. */
+.app[data-sala='entrada'] { --acento: 88 181 166; --acento-claro: 128 205 192; }
+.app[data-sala='curadoria'] { --acento: 210 160 74; --acento-claro: 232 190 120; }
+.app[data-sala='casa-nova'] { --acento: 206 118 70; --acento-claro: 232 154 108; }
+.app[data-sala='remanso'] { --acento: 92 184 150; --acento-claro: 140 208 180; }
+.app[data-sala='pilao-arcado'] { --acento: 92 160 196; --acento-claro: 140 192 222; }
+.app[data-sala='sento-se'] { --acento: 214 168 82; --acento-claro: 232 196 128; }
+.app[data-sala='fechamento'] { --acento: 190 187 176; --acento-claro: 220 217 208; }
+.app[data-sala='trilha'] { --acento: 79 170 190; --acento-claro: 130 200 216; }
+.app[data-sala='material-adicional'] { --acento: 184 180 166; --acento-claro: 216 212 200; }
+
+@layer base {
+  html {
+    background: rgb(var(--fundo));
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--concreto)) rgb(var(--fundo));
+  }
+  body {
+    @apply font-sans text-areia antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-optical-sizing: auto;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: rgb(var(--acento) / 0.35);
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--acento-claro));
+    outline-offset: 3px;
+  }
+
+  /* Títulos de sala: letra condensada de placa de obra */
+  h1,
+  h2,
+  h1.font-serif,
+  h2.font-serif {
+    font-family: theme('fontFamily.display');
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.004em;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Controles em letra de placa, sem caixa alta */
+  button,
+  [role='tab'],
+  .ui {
+    font-family: theme('fontFamily.display');
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    font-size: 1.05rem;
+    line-height: 1.1;
+  }
+  a,
+  button,
+  [role='button'],
+  [role='tab'] {
+    touch-action: manipulation;
+  }
+  button,
+  [role='tab'] {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  img {
+    -webkit-user-drag: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Fundo: camadas fixas por sala. Nada de degradê liso.
+------------------------------------------------------------------- */
+@layer components {
+  .fundo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: rgb(var(--fundo-sala, var(--fundo)));
+  }
+  .fundo__a,
+  .fundo__b,
+  .fundo__brilho,
+  .fundo__grao {
+    position: absolute;
+    inset: 0;
+  }
+  .fundo__a {
+    inset: -3%;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.17;
+  }
+  .fundo__b {
+    background-repeat: repeat;
+  }
+  .fundo__brilho {
+    background:
+      radial-gradient(90% 60% at 50% -10%, rgb(var(--acento) / 0.1), transparent 65%),
+      radial-gradient(120% 100% at 50% 50%, transparent 45%, rgb(0 0 0 / 0.55) 100%);
+  }
+  .fundo__grao {
+    background: url('/texturas/ruido.svg');
+    opacity: 0.06;
+  }
+
+  /* terra: curvas de nível douradas e chão de barro rachado */
+  .app[data-sala='curadoria'] .fundo__a,
+  .app[data-sala='casa-nova'] .fundo__a,
+  .app[data-sala='sento-se'] .fundo__a {
+    background-image: url('/texturas/curvas-terra.svg');
+  }
+  .app[data-sala='casa-nova'] .fundo__b,
+  .app[data-sala='sento-se'] .fundo__b {
+    top: auto;
+    height: 58%;
+    background-image: url('/texturas/barro-rachado.svg');
+    background-size: 640px;
+    background-position: center bottom;
+    opacity: 0.55;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+    mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+  }
+
+  /* água: curvas de nível verde-azuladas */
+  .app[data-sala='entrada'] .fundo__a,
+  .app[data-sala='remanso'] .fundo__a,
+  .app[data-sala='pilao-arcado'] .fundo__a,
+  .app[data-sala='trilha'] .fundo__a {
+    background-image: url('/texturas/curvas-agua.svg');
+    opacity: 0.15;
+  }
+
+  /* concreto: fôrmas e furos de tirante */
+  .app[data-sala='fechamento'],
+  .app[data-sala='material-adicional'] {
+    --fundo-sala: 38 36 33;
+  }
+  .app[data-sala='fechamento'] .fundo__b,
+  .app[data-sala='material-adicional'] .fundo__b {
+    background-image: url('/texturas/concreto.svg');
+    background-size: 300px;
+  }
+
+  /* Botão: um nível d'água sobe ao passar o mouse; no toque responde ao apertar. */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.4rem;
+    color: rgb(var(--areia));
+    border: 1px solid rgb(var(--areia) / 0.32);
+    background-color: transparent;
+    background-image: linear-gradient(rgb(var(--acento)), rgb(var(--acento)));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 0%;
+    transition:
+      background-size 0.4s var(--ease-out),
+      color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.12s var(--ease-out);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-cheio {
+    color: rgb(var(--fundo));
+    border-color: rgb(var(--acento));
+    background-color: rgb(var(--acento));
+    background-image: linear-gradient(rgb(var(--areia)), rgb(var(--areia)));
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover {
+      background-size: 100% 100%;
+      color: rgb(var(--fundo));
+      border-color: rgb(var(--acento));
+    }
+  }
+
+  /* Fio ondulado, como uma linha d'água, para separar o título do texto */
+  .fio {
+    display: block;
+    width: 9rem;
+    height: 8px;
+    background-color: rgb(var(--acento));
+    -webkit-mask: url('/texturas/fio.svg') repeat-x center / 48px 8px;
+    mask: url('/texturas/fio.svg') repeat-x center / 48px 8px;
+  }
+
+  /* Barra do menu: mostra em que ponto do curso o visitante está */
+  .nav {
+    view-transition-name: nav;
+  }
+  .nav-curso {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: rgb(var(--acento));
+    transform-origin: left center;
+    transform: scaleX(var(--p, 0));
+    transition:
+      transform 0.7s var(--ease-out),
+      background-color 0.6s ease;
+  }
+
+  /* Equalizador do botão de som */
+  .eq {
+    display: inline-flex;
+    height: 14px;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  .eq span {
+    width: 2px;
+    height: 100%;
+    background: currentColor;
+    transform-origin: bottom;
+    transform: scaleY(0.55);
+    animation: eq 0.9s ease-in-out infinite alternate;
+  }
+  .eq span:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .eq span:nth-child(3) {
+    animation-delay: -0.6s;
+  }
+
+  /* Título da Entrada: a linha d'água corta as letras */
+  .titulo-agua {
+    position: relative;
+  }
+  .titulo-agua__sub {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    color: rgb(var(--rio-verde));
+    -webkit-mask-image: url('/texturas/onda-mascara.svg');
+    mask-image: url('/texturas/onda-mascara.svg');
+    -webkit-mask-size: 360px 100%;
+    mask-size: 360px 100%;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    animation: deriva 18s linear infinite;
+  }
+  .ondas {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 160px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .ondas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -1440px;
+    background: url('/texturas/ondas.svg') repeat-x 0 0 / 1440px 160px;
+    animation: onda-x 52s linear infinite;
+  }
+
+  /* Entrada do herói: acontece uma vez, na primeira visita */
+  .entra {
+    animation: subir 0.9s var(--ease-out) both;
+  }
+
+  /* Menu de salas em tela cheia */
+  .menu-salas {
+    animation: menu-entra 0.24s var(--ease-out) both;
+  }
+
+  /* Lightbox: a foto entra sem salto */
+  .lightbox {
+    animation: fade-in 0.2s var(--ease-out) both;
+  }
+  .lightbox__img {
+    animation: foto-entra 0.28s var(--ease-out) both;
+  }
+}
+
+@keyframes eq {
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes deriva {
+  to {
+    -webkit-mask-position: -360px 0;
+    mask-position: -360px 0;
+  }
+}
+@keyframes onda-x {
+  to {
+    transform: translateX(-1440px);
+  }
+}
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+@keyframes menu-entra {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes foto-entra {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Transição entre salas (View Transitions). O menu fica parado;
+   a sala que sai some rápido e a nova entra do lado do percurso.
+------------------------------------------------------------------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: 220ms var(--ease-out) both sala-sai;
+  }
+  ::view-transition-new(root) {
+    animation: 520ms var(--ease-out) 70ms both sala-entra;
+  }
+  html[data-transicao='aba']::view-transition-old(root) {
+    animation: 120ms var(--ease-out) both aba-sai;
+  }
+  html[data-transicao='aba']::view-transition-new(root) {
+    animation: 280ms var(--ease-out) 40ms both aba-entra;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root) {
+    animation: 120ms linear both fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 180ms linear both fade-in;
+  }
+  .titulo-agua__sub,
+  .ondas::before,
+  .entra,
+  .menu-salas,
+  .lightbox,
+  .lightbox__img {
+    animation: none;
+  }
+  .eq span {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+@keyframes sala-sai {
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--dir) * -24px));
+    filter: blur(3px);
+  }
+}
+@keyframes sala-entra {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--dir) * 36px));
+    filter: blur(6px);
+  }
+}
+@keyframes aba-sai {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes aba-entra {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Mapa real da Trilha (Leaflet): o mapa claro é escurecido para combinar com o site.
+------------------------------------------------------------------- */
+.mapa-real {
+  background: rgb(var(--terra));
+  font-family: inherit;
+}
+.mapa-real .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.8) saturate(0.75) contrast(0.95);
+}
+.mapa-real .leaflet-control-attribution {
+  background: rgb(var(--fundo) / 0.8);
+  color: rgb(var(--areia-fosca));
+  font-size: 11px;
+}
+.mapa-real .leaflet-control-attribution a {
+  color: rgb(var(--areia-suave));
+}
+.mapa-real .leaflet-bar a,
+.mapa-real .leaflet-bar a:hover {
+  background: rgb(var(--terra));
+  color: rgb(var(--areia));
+  border-color: rgb(var(--concreto));
+}
+.mk-wrap {
+  background: none;
+  border: 0;
+}
+.mk {
+  position: relative;
+  display: flex;
+  width: 140px;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.mk__dot {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  border: 2px solid rgb(var(--areia));
+  background: rgb(var(--acento));
+  box-shadow: 0 0 0 4px rgb(var(--acento) / 0.25);
+  transition: transform 0.2s var(--ease-out);
+}
+.mk__pulse {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  border-radius: 9999px;
+  background: rgb(var(--acento) / 0.45);
+  animation: mk-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.mk__nome {
+  margin-top: 8px;
+  font-family: theme('fontFamily.display');
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgb(var(--areia));
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.95), 0 0 10px rgb(0 0 0 / 0.85);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mk:hover .mk__dot {
+    transform: scale(1.25);
+  }
+}
+.leaflet-marker-icon:focus-visible .mk__dot {
+  outline: 2px solid rgb(var(--acento-claro));
+  outline-offset: 3px;
+}
+@keyframes mk-ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mk__pulse {
+    animation: none;
+    opacity: 0;
+  }
+}

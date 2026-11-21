@@ -1,91 +1,79 @@
-import { useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import NucleoCabecalho from '../components/NucleoCabecalho'
+import { AbasDaSala, BlocoTexto, GrupoFotos, LinhaDoTempo, ListaDeReferencias, Numeros } from '../components/partesDeSala'
 import { remanso } from '../data'
 
-export default function Remanso({ onAbrir }) {
-  const { id, titulo, intro, audio, fotos, relatos } = remanso
-  const [atual, setAtual] = useState(0)
-  const ir = (n) => setAtual((n + fotos.length) % fotos.length)
-  const foto = fotos[atual]
+const ABAS = [
+  { id: 'apresentacao', rotulo: 'Apresentação' },
+  { id: 'antiga', rotulo: 'A antiga Remanso' },
+  { id: 'remocao', rotulo: 'A remoção' },
+  { id: 'seca', rotulo: 'A seca e as ruínas' },
+  { id: 'fontes', rotulo: 'Fontes' },
+]
+
+export default function Remanso({ onAbrir, aba }) {
+  const { id, titulo, intro, audio, abertura, linhaDoTempo, antiga, remocao, seca, referencias } = remanso
+  const atual = ABAS.find((a) => a.id === aba) ?? ABAS[0]
 
   return (
-    <section id={id} className="scroll-mt-16">
-      <div className="mx-auto max-w-6xl px-6 py-24">
+    <section id={id}>
+      <div className="mx-auto max-w-6xl px-6 pb-24 pt-14 sm:pt-20">
         <NucleoCabecalho titulo={titulo} intro={intro} audio={audio} />
+      </div>
 
-        <div role="group" aria-roledescription="carrossel" aria-label="Fotografias de Remanso">
-          <button
-            type="button"
-            onClick={() => onAbrir(fotos, atual)}
-            aria-label={`Ampliar: ${foto.titulo}`}
-            className="relative block w-full overflow-hidden rounded-xl text-left"
-          >
-            <div
-              className="flex min-h-[420px] items-end p-6 sm:min-h-[520px] sm:p-12"
-              style={{ background: foto.src ? undefined : foto.fundo }}
-            >
-              {foto.src && <img src={foto.src} alt={foto.titulo} className="absolute inset-0 h-full w-full object-cover" />}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="relative max-w-xl" aria-live="polite">
-                <p className="text-sm text-areia-suave">
-                  {atual + 1} de {fotos.length}
-                </p>
-                <p className="mt-2 font-serif text-3xl leading-tight sm:text-5xl">{foto.titulo}</p>
-                <p className="mt-3 text-lg text-areia">{foto.legenda}</p>
-              </div>
-            </div>
-          </button>
+      <AbasDaSala salaId={id} rotulo={titulo} abas={ABAS} atualId={atual.id} />
 
-          <div className="mt-5 flex items-center justify-between">
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => ir(atual - 1)}
-                aria-label="Foto anterior"
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-sf-claro/40 hover:bg-sf/40"
-              >
-                <ChevronLeft size={22} aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => ir(atual + 1)}
-                aria-label="Próxima foto"
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-sf-claro/40 hover:bg-sf/40"
-              >
-                <ChevronRight size={22} aria-hidden="true" />
-              </button>
-            </div>
-            <div className="flex">
-              {fotos.map((f, i) => (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => ir(i)}
-                  aria-label={`Ir para a foto ${i + 1}`}
-                  aria-current={i === atual ? 'true' : undefined}
-                  className="flex h-11 w-11 items-center justify-center"
-                >
-                  <span
-                    className={`block h-2 rounded-full transition-all ${
-                      i === atual ? 'w-8 bg-terracota-claro' : 'w-3 bg-sf-claro/50'
-                    }`}
-                  />
-                </button>
+      <div
+        id={`painel-${id}`}
+        role="tabpanel"
+        aria-labelledby={`aba-${id}-${atual.id}`}
+        className="mx-auto max-w-6xl px-6 pb-24 pt-14"
+      >
+        {atual.id === 'apresentacao' && (
+          <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+            <div className="space-y-5 text-lg text-areia-suave">
+              {abertura.map((p) => (
+                <p key={p}>{p}</p>
               ))}
             </div>
+            <div>
+              <h3 className="mb-6 font-serif text-3xl font-semibold text-areia">Linha do tempo</h3>
+              <LinhaDoTempo itens={linhaDoTempo} salaId={id} />
+            </div>
           </div>
-        </div>
+        )}
 
-        <h3 className="mb-6 mt-20 font-serif text-3xl text-terracota-claro">Relatos orais</h3>
-        <div className="grid gap-5 md:grid-cols-3">
-          {relatos.map((r) => (
-            <figure key={r.texto} className="rounded-lg border border-sf/60 bg-sf/20 p-6">
-              <blockquote className="mb-4 font-serif text-xl italic text-areia-suave">{r.texto}</blockquote>
-              <figcaption className="text-sm text-areia-fosca">{r.autor}</figcaption>
-            </figure>
-          ))}
-        </div>
+        {atual.id === 'antiga' && (
+          <GrupoFotos grupo={antiga} fotosDaAba={antiga.fotos} deslocamento={0} onAbrir={onAbrir} />
+        )}
+
+        {atual.id === 'remocao' && (
+          <>
+            <BlocoTexto titulo={remocao.titulo} paragrafos={remocao.paragrafos} />
+            <Numeros itens={remocao.numeros} />
+            <GrupoFotos
+              grupo={{ titulo: 'A nova Remanso', texto: 'Registros da cidade reconstruída.', fotos: remocao.fotos }}
+              fotosDaAba={remocao.fotos}
+              deslocamento={0}
+              onAbrir={onAbrir}
+            />
+          </>
+        )}
+
+        {atual.id === 'seca' && (
+          <>
+            <BlocoTexto titulo={seca.titulo} paragrafos={seca.paragrafos} />
+            <div className="mt-12">
+              <GrupoFotos
+                grupo={{ titulo: 'A igreja emerge', texto: 'A torre e a fachada da antiga igreja voltam a aparecer.', fotos: seca.fotos }}
+                fotosDaAba={seca.fotos}
+                deslocamento={0}
+                onAbrir={onAbrir}
+              />
+            </div>
+          </>
+        )}
+
+        {atual.id === 'fontes' && <ListaDeReferencias referencias={referencias} />}
       </div>
     </section>
   )
